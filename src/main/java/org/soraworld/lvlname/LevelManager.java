@@ -21,9 +21,12 @@ public class LevelManager extends SpigotManager {
     private String levelDN = "";
     @Setting(comment = "comment.levels")
     private HashMap<String, String> lvlNames = new HashMap<>();
+    @Setting(comment = "comment.awards")
+    private HashMap<String, Integer> lvlAwards = new HashMap<>();
 
     private String textUP = "", textDN = "";
     private HashMap<LevelRange, String> rangeNames = new HashMap<>();
+    private HashMap<LevelRange, Integer> rangeAwards = new HashMap<>();
     public static final Pattern LEVEL_RANGE = Pattern.compile("\\d+-\\d+");
 
     public LevelManager(LevelName plugin, Path path) {
@@ -41,6 +44,11 @@ public class LevelManager extends SpigotManager {
         lvlNames.forEach((key, val) -> {
             if (key != null && LEVEL_RANGE.matcher(key).matches() && val != null) {
                 rangeNames.put(new LevelRange(key), val);
+            }
+        });
+        lvlAwards.forEach((key, val) -> {
+            if (key != null && LEVEL_RANGE.matcher(key).matches() && val != null) {
+                rangeAwards.put(new LevelRange(key), val);
             }
         });
     }
@@ -62,6 +70,7 @@ public class LevelManager extends SpigotManager {
     public boolean save() {
         lvlNames.clear();
         rangeNames.forEach((range, name) -> lvlNames.put(range.toString(), name));
+        rangeAwards.forEach((range, award) -> lvlAwards.put(range.toString(), award));
         return super.save();
     }
 
@@ -77,6 +86,10 @@ public class LevelManager extends SpigotManager {
         LevelRange oldRange = getRange(oldLevel);
         LevelRange newRange = getRange(newLevel);
         if (oldRange != newRange) {
+            int award = rangeAwards.getOrDefault(newRange, 0);
+            if (newLevel > oldLevel && award != 0) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + player.getName() + " " + award);
+            }
             String oldName = getLevelName(oldRange);
             String newName = getLevelName(newRange);
             String message = (newLevel > oldLevel ? textUP : textDN).replaceAll("%player%", player.getName())

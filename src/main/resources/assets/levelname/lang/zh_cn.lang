@@ -14,4 +14,5 @@ comment {
   levelUP = "玩家等级升高时的广播信息，变量信息:\n%player% - 玩家名字;%oldlvl% - 旧等级;%oldname% - 旧称号;%newlvl% - 新等级;%newname% - 新称号;"
   levelDN = "玩家等级降低时的广播信息，变量信息:\n%player% - 玩家名字;%oldlvl% - 旧等级;%oldname% - 旧称号;%newlvl% - 新等级;%newname% - 新称号;"
   levels = "玩家等级称号配置，未在此配置的世界将使用默认值 defaultName."
+  awards = "玩家升级时的金钱奖励, 注意，等级范围需与 levels 配置一致."
 }
