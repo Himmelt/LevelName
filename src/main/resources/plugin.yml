@@ -1,0 +1,11 @@
+name: LevelName
+version: 1.0.0
+author: Himmelt
+main: org.soraworld.lvlname.LevelName
+depend: [Violet]
+softdepend: [PlaceholderAPI]
+website: https://github.com/Himmelt/LevelName
+description: LevelName Plugin.
+permissions:
+  levelname.admin:
+    default: op

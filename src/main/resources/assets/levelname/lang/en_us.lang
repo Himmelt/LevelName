@@ -1,0 +1,17 @@
+# English Language File
+# Please keep UTF-8 encoding
+
+chatHead = "[LevelName] "
+
+placeholder {
+  notHook = "PlaceholderAPI 变量插件没有对接，此功能不可用 !"
+  expansionSuccess = "PlaceholderAPI 称号扩展 注册成功."
+  expansionFailed = "PlaceholderAPI 称号扩展 注册失败 !"
+}
+
+comment {
+  defaultName = "默认等级称号,当玩家等级不在配置内时的称号."
+  levelUP = "玩家等级升高时的广播信息，变量信息:\n%player% - 玩家名字;%oldlvl% - 旧等级;%oldname% - 旧称号;%newlvl% - 新等级;%newname% - 新称号;"
+  levelDN = "玩家等级降低时的广播信息，变量信息:\n%player% - 玩家名字;%oldlvl% - 旧等级;%oldname% - 旧称号;%newlvl% - 新等级;%newname% - 新称号;"
+  levels = "玩家等级称号配置，未在此配置的世界将使用默认值 defaultName."
+}
