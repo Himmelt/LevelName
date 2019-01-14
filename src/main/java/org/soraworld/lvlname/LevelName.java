@@ -35,10 +35,7 @@ public class LevelName extends SpigotPlugin {
 
     public void registerCommands() {
         SpigotCommand command = new SpigotCommand(this.getId(), this.manager.defAdminPerm(), false, this.manager, "lvlname", "lname");
-        command.extractSub(SpigotBaseSubs.class, "lang");
-        command.extractSub(SpigotBaseSubs.class, "debug");
-        command.extractSub(SpigotBaseSubs.class, "save");
-        command.extractSub(SpigotBaseSubs.class, "reload");
+        command.extractSub(SpigotBaseSubs.class);
         command.setUsage("/lvlname ");
         register(this, command);
     }
@@ -53,7 +50,7 @@ public class LevelName extends SpigotPlugin {
         if (placeholderApi) {
             try {
                 PlaceholderExpansion expansion = NameExpansion.class.getConstructor(LevelManager.class).newInstance(manager);
-                if (PlaceholderAPI.registerExpansion(expansion)) {
+                if (PlaceholderAPI.registerPlaceholderHook(expansion.getIdentifier(), expansion)) {
                     manager.consoleKey("placeholder.expansionSuccess");
                 } else manager.consoleKey("placeholder.expansionFailed");
             } catch (Throwable ignored) {

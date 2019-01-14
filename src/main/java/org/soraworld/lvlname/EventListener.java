@@ -14,14 +14,14 @@ public class EventListener implements Listener {
         this.manager = manager;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
         if (!event.isCancelled()) {
             if (event.getFormat().contains("%1$s")) {
                 String lvlName = manager.getLevelName(event.getPlayer());
                 if (lvlName != null) {
                     StringBuilder build = new StringBuilder(event.getFormat());
-                    build.insert(build.indexOf("%1$s"), '[' + lvlName + ']');
+                    build.insert(build.indexOf("%1$s"), lvlName);
                     event.setFormat(build.toString());
                 }
             }

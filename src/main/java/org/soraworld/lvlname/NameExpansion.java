@@ -15,6 +15,10 @@ public class NameExpansion extends PlaceholderExpansion {
         return manager.getPlugin().getId();
     }
 
+    public String getPlugin() {
+        return manager.getPlugin().getId();
+    }
+
     public String getAuthor() {
         return "Himmelt";
     }
