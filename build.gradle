@@ -17,8 +17,8 @@ repositories {
         url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
     maven {
-        name = 'lss233'
-        url = 'https://www.lss233.com/artifactory/minecraft'
+        name = 'placeholderapi'
+        url = 'http://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
 }
 
