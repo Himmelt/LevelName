@@ -24,7 +24,6 @@ public class LevelManager extends SpigotManager {
     @Setting(comment = "comment.awards")
     private HashMap<String, Integer> lvlAwards = new HashMap<>();
 
-    private String textUP = "", textDN = "";
     private HashMap<LevelRange, String> rangeNames = new HashMap<>();
     private HashMap<LevelRange, Integer> rangeAwards = new HashMap<>();
     public static final Pattern LEVEL_RANGE = Pattern.compile("\\d+-\\d+");
@@ -38,8 +37,6 @@ public class LevelManager extends SpigotManager {
     }
 
     public void afterLoad() {
-        textUP = ChatColor.colorize(levelUP);
-        textDN = ChatColor.colorize(levelDN);
         rangeNames.clear();
         lvlNames.forEach((key, val) -> {
             if (key != null && LEVEL_RANGE.matcher(key).matches() && val != null) {
@@ -53,6 +50,13 @@ public class LevelManager extends SpigotManager {
         });
     }
 
+    public boolean save() {
+        lvlNames.clear();
+        rangeNames.forEach((range, name) -> lvlNames.put(range.toString(), name));
+        rangeAwards.forEach((range, award) -> lvlAwards.put(range.toString(), award));
+        return super.save();
+    }
+
     public LevelRange getRange(int level) {
         for (LevelRange range : rangeNames.keySet()) {
             if (range.match(level)) return range;
@@ -62,20 +66,13 @@ public class LevelManager extends SpigotManager {
 
     public String getLevelName(int level) {
         for (Map.Entry<LevelRange, String> entry : rangeNames.entrySet()) {
-            if (entry.getKey().match(level)) return entry.getValue();
+            if (entry.getKey().match(level)) return ChatColor.colorize(entry.getValue());
         }
-        return defaultName;
-    }
-
-    public boolean save() {
-        lvlNames.clear();
-        rangeNames.forEach((range, name) -> lvlNames.put(range.toString(), name));
-        rangeAwards.forEach((range, award) -> lvlAwards.put(range.toString(), award));
-        return super.save();
+        return ChatColor.colorize(defaultName);
     }
 
     public String getLevelName(LevelRange range) {
-        return rangeNames.getOrDefault(range, defaultName);
+        return ChatColor.colorize(rangeNames.getOrDefault(range, defaultName));
     }
 
     public String getLevelName(Player player) {
@@ -92,10 +89,12 @@ public class LevelManager extends SpigotManager {
             }
             String oldName = getLevelName(oldRange);
             String newName = getLevelName(newRange);
-            String message = (newLevel > oldLevel ? textUP : textDN).replaceAll("%player%", player.getName())
+            String message = (newLevel > oldLevel ? levelUP : levelDN).replaceAll("%player%", player.getName())
                     .replaceAll("%oldlvl%", String.valueOf(oldLevel)).replaceAll("%oldname%", oldName)
                     .replaceAll("%newlvl%", String.valueOf(newLevel)).replaceAll("%newname%", newName);
-            if (oldLevel != newLevel && !message.isEmpty()) Bukkit.broadcastMessage(message);
+            if (oldLevel != newLevel && !message.isEmpty()) {
+                Bukkit.broadcastMessage(ChatColor.colorize(message));
+            }
         }
     }
 }
