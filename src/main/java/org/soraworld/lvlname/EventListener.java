@@ -21,7 +21,7 @@ public class EventListener implements Listener {
                 String lvlName = manager.getLevelName(event.getPlayer());
                 if (lvlName != null) {
                     StringBuilder build = new StringBuilder(event.getFormat());
-                    build.insert(build.indexOf("%1$s") + 4, '[' + lvlName + ']');
+                    build.insert(build.indexOf("%1$s"), '[' + lvlName + ']');
                     event.setFormat(build.toString());
                 }
             }
