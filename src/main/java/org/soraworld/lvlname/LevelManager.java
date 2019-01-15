@@ -38,6 +38,7 @@ public class LevelManager extends SpigotManager {
 
     public void afterLoad() {
         rangeNames.clear();
+        rangeAwards.clear();
         lvlNames.forEach((key, val) -> {
             if (key != null && LEVEL_RANGE.matcher(key).matches() && val != null) {
                 rangeNames.put(new LevelRange(key), val);
@@ -52,6 +53,7 @@ public class LevelManager extends SpigotManager {
 
     public boolean save() {
         lvlNames.clear();
+        lvlAwards.clear();
         rangeNames.forEach((range, name) -> lvlNames.put(range.toString(), name));
         rangeAwards.forEach((range, award) -> lvlAwards.put(range.toString(), award));
         return super.save();
