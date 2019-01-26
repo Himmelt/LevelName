@@ -1,5 +1,5 @@
 name: LevelName
-version: 1.0.3
+version: 1.0.4
 author: Himmelt
 main: org.soraworld.lvlname.LevelName
 depend: [Violet]

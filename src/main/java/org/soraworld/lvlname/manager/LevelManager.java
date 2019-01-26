@@ -11,6 +11,7 @@ import org.soraworld.violet.util.ChatColor;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 public class LevelManager extends SpigotManager {
@@ -21,10 +22,15 @@ public class LevelManager extends SpigotManager {
     private String levelUP = "";
     @Setting(comment = "comment.levelDN")
     private String levelDN = "";
+    @Setting
+    private String levelFormat = "&8[&fLv.%level%&b&7]&r";
+    private String levelColorFormat = "";
     @Setting(comment = "comment.levels")
     private HashMap<String, String> lvlNames = new HashMap<>();
     @Setting(comment = "comment.awards")
     private HashMap<String, Integer> lvlAwards = new HashMap<>();
+    @Setting
+    private TreeMap<String, Integer> recordLevels = new TreeMap<>();
 
     private HashMap<LevelRange, String> rangeNames = new HashMap<>();
     private HashMap<LevelRange, Integer> rangeAwards = new HashMap<>();
@@ -39,6 +45,7 @@ public class LevelManager extends SpigotManager {
     }
 
     public void afterLoad() {
+        levelColorFormat = ChatColor.colorize(levelFormat) + ChatColor.RESET;
         rangeNames.clear();
         rangeAwards.clear();
         lvlNames.forEach((key, val) -> {
@@ -59,6 +66,10 @@ public class LevelManager extends SpigotManager {
         rangeNames.forEach((range, name) -> lvlNames.put(range.toString(), name));
         rangeAwards.forEach((range, award) -> lvlAwards.put(range.toString(), award));
         return super.save();
+    }
+
+    public String getLevelFormat(int level) {
+        return levelColorFormat.replaceAll("%level%", String.valueOf(level));
     }
 
     public LevelRange getRange(int level) {
@@ -90,7 +101,8 @@ public class LevelManager extends SpigotManager {
         LevelRange newRange = getRange(newLevel);
         if (oldRange != newRange) {
             int award = rangeAwards.getOrDefault(newRange, 0);
-            if (newLevel > oldLevel && award != 0) {
+            if (newLevel > oldLevel && newLevel > recordLevels.computeIfAbsent(player.getName(), name -> 0) && award != 0) {
+                recordLevels.put(player.getName(), newLevel);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + player.getName() + " " + award);
             }
             String oldName = getLevelName(oldRange);

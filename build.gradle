@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 group = 'org.soraworld'
-version = '1.0.3'
+version = '1.0.4'
 archivesBaseName = "LevelName"
 
 sourceCompatibility = targetCompatibility = 1.8

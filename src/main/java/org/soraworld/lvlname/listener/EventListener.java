@@ -16,17 +16,22 @@ public class EventListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-        if (!event.isCancelled()) {
-            if (event.getFormat().contains("%1$s")) {
-                String lvlName = manager.getLevelName(event.getPlayer());
-                if (lvlName != null) {
-                    StringBuilder build = new StringBuilder(event.getFormat());
-                    build.insert(build.indexOf("%1$s"), lvlName);
-                    event.setFormat(build.toString());
-                }
+    public void onAsyncPlayerChat1(AsyncPlayerChatEvent event) {
+        if (event.getFormat().contains("%1$s")) {
+            int level = event.getPlayer().getLevel();
+            String lvlName = manager.getLevelName(level);
+            if (lvlName != null) {
+                StringBuilder build = new StringBuilder(event.getFormat());
+                build.insert(build.indexOf("%1$s"), lvlName);
+                event.setFormat(build.toString());
             }
         }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onAsyncPlayerChat2(AsyncPlayerChatEvent event) {
+        int level = event.getPlayer().getLevel();
+        event.setFormat(manager.getLevelFormat(level) + event.getFormat());
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
