@@ -1,6 +1,6 @@
-package org.soraworld.lvlname;
+package org.soraworld.lvlname.range;
 
-import static org.soraworld.lvlname.LevelManager.LEVEL_RANGE;
+import static org.soraworld.lvlname.manager.LevelManager.LEVEL_RANGE;
 
 public class LevelRange {
 

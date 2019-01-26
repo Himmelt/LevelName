@@ -1,8 +1,10 @@
-package org.soraworld.lvlname;
+package org.soraworld.lvlname.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.soraworld.hocon.node.Setting;
+import org.soraworld.lvlname.LevelName;
+import org.soraworld.lvlname.range.LevelRange;
 import org.soraworld.violet.manager.SpigotManager;
 import org.soraworld.violet.util.ChatColor;
 
@@ -68,7 +70,9 @@ public class LevelManager extends SpigotManager {
 
     public String getLevelName(int level) {
         for (Map.Entry<LevelRange, String> entry : rangeNames.entrySet()) {
-            if (entry.getKey().match(level)) return ChatColor.colorize(entry.getValue());
+            if (entry.getKey().match(level)) {
+                return ChatColor.colorize(entry.getValue());
+            }
         }
         return ChatColor.colorize(defaultName);
     }

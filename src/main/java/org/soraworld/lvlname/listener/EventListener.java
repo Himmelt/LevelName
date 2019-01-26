@@ -1,10 +1,11 @@
-package org.soraworld.lvlname;
+package org.soraworld.lvlname.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
+import org.soraworld.lvlname.manager.LevelManager;
 
 public class EventListener implements Listener {
 

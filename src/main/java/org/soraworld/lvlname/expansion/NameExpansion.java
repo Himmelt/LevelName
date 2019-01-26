@@ -1,7 +1,8 @@
-package org.soraworld.lvlname;
+package org.soraworld.lvlname.expansion;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
+import org.soraworld.lvlname.manager.LevelManager;
 
 public class NameExpansion extends PlaceholderExpansion {
 
