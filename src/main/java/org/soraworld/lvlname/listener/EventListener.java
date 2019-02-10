@@ -28,7 +28,7 @@ public class EventListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onAsyncPlayerChat2(AsyncPlayerChatEvent event) {
         int level = event.getPlayer().getLevel();
         event.setFormat(manager.getLevelFormat(level) + event.getFormat());
