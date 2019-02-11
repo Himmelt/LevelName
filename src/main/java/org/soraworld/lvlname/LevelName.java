@@ -18,9 +18,9 @@ import java.util.List;
 
 public class LevelName extends SpigotPlugin {
 
-    private static final boolean placeholderApi;
+    private final boolean placeholderApi;
 
-    static {
+    {
         boolean placeholder = false;
         try {
             PlaceholderAPI.class.getName();
@@ -53,7 +53,7 @@ public class LevelName extends SpigotPlugin {
         if (placeholderApi) {
             try {
                 PlaceholderExpansion expansion = NameExpansion.class.getConstructor(LevelManager.class).newInstance(manager);
-                if (PlaceholderAPI.registerPlaceholderHook(expansion.getIdentifier(), expansion)) {
+                if (PlaceholderAPI.registerExpansion(expansion)) {
                     manager.consoleKey("placeholder.expansionSuccess");
                 } else manager.consoleKey("placeholder.expansionFailed");
             } catch (Throwable ignored) {

@@ -15,7 +15,7 @@ public class EventListener implements Listener {
         this.manager = manager;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAsyncPlayerChat1(AsyncPlayerChatEvent event) {
         if (event.getFormat().contains("%1$s")) {
             int level = event.getPlayer().getLevel();
@@ -28,7 +28,7 @@ public class EventListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAsyncPlayerChat2(AsyncPlayerChatEvent event) {
         int level = event.getPlayer().getLevel();
         event.setFormat(manager.getLevelFormat(level) + event.getFormat());
